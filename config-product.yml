@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: MsProduct
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productbd
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 9000
+#-----------------------------------------------------------------------------
+# configuration los endpoints
+management:
+  endpoints:
+    web:
+      base-path: '/product/actuator'
+      exposure:
+        include: "*" #activar el resto actuator. /info, /health, /metrics, /trace, ...
+
+eureka:
+  instance:
+    status-page-url: http://127.0.0.1:9000${management.endpoints.web.base-path}/info
+    health-check-url-path: http://127.0.0.1:9000${management.endpoints.web.base-path}/health
+
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8099/eureka/
+      # healthcheck: # Activar la prueba de vida del servicio
+      #   enabled: true
+    ## enabled: false # desactivar el servicio
+
+info: # Este Actuator Muestra información arbitraria de nuestra aplicación.
+  project:
+    name: ms-store-product
+    description: store product
+    version: 1.0.0
