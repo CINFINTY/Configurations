@@ -47,3 +47,9 @@ management:
       exposure:
         include:
         - "*"
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: '*'
+feign:
+  hystrix:
+    enabled: true
