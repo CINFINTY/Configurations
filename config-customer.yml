@@ -1,28 +1,47 @@
 server:
-  port: 9001
-#-----------------------------------------------------------------------------
-# configuration los endpoints
+  port: 8088
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: false
+#spring:
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    password: password
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: password
+    url: jdbc:postgresql://localhost:5432/ProductDB
+    username: postgres
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    #database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+eureka:
+  instance:
+    statusPageUrlPath: ${management.endpoints.web.base-path}/info
+    healthCheckUrlPath: ${management.endpoints.web.base-path}/health
+  client:
+    serviceUrl:
+#      defaultZone: http://127.0.0.1:8099/eureka/
+      defaultZone: http://primary:8011/eureka/,http://secondary:8012/eureka/,http://tertiary:8013/eureka/
+info:
+  project:
+    name: ms-store-customer
+    description: Store Customer
+    version: 1.0.0
 management:
   endpoints:
     web:
       base-path: '/customer/actuator'
       exposure:
-        include: "*" #activar el resto actuator. /info, /health, /metrics, /trace, ...
-
-eureka:
-  instance:
-    status-page-url: http://127.0.0.1:9001${management.endpoints.web.base-path}/info
-    health-check-url-path: http://127.0.0.1:9001${management.endpoints.web.base-path}/health
-
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8099/eureka/
-      # healthcheck: # Activar la prueba de vida del servicio
-      #   enabled: true
-    ## enabled: false # desactivar el servicio
-
-info: # Este Actuator Muestra información arbitraria de nuestra aplicación.
-  project:
-    name: ms-store-customer
-    description: store customer
-    version: 1.0.0
+        include:
+        - "*"
