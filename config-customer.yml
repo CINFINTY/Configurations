@@ -4,12 +4,7 @@ server:
     include-message: always
     include-binding-errors: always
     include-exception: false
-#spring:
-#  datasource:
-#    driverClassName: org.h2.Driver
-#    password: password
-#    url: jdbc:h2:mem:testdb
-#    username: sa
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
