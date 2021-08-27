@@ -1,25 +1,19 @@
 server:
-  port: 8088
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: false
+  port: 9000
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: password
-    url: jdbc:postgresql://localhost:5432/ProductDB
+    url: jdbc:postgresql://localhost:5432/productbd
     username: postgres
-  h2:
-    console:
-      enabled: true
+    password: 1234
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    #database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
       ddl-auto: update
+
 eureka:
   instance:
     statusPageUrlPath: ${management.endpoints.web.base-path}/info
