@@ -1,39 +1,10 @@
----
-spring:
-  profiles: storeServer01
 server:
-  port: 8011
+  port: 8099
 eureka:
   instance:
-    hostname: primary
+    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
-    service-url:
-      defaultZone: http://secondary:8012,http://tertiary:8013
----
-spring:
-  profiles: storeServer02
-server:
-  port: 8012
-eureka:
-  instance:
-    hostname: secondary
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    service-url:
-      defaultZone: http://primary:8011,http://tertiary:8013
----
-spring:
-  profiles: storeServer03
-server:
-  port: 8013
-eureka:
-  instance:
-    hostname: tertiary
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    service-url:
-      defaultZone: http://secondary:8012,http://primary:8011
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8099/eureka/
